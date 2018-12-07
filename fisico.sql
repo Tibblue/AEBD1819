@@ -1,33 +1,3 @@
---TABLESPACE TP_AEBD
-CREATE TABLESPACE TP_AEBD 
-    DATAFILE 
-        '\u01\app\oracle\oradata\orcl12\orcl\TP_AEBD_01.DBF' SIZE 104857600;
---TABLESPACE TP_TEMP   
-CREATE TEMPORARY TABLESPACE TP_TEMP 
-    TEMPFILE 
-        '\u01\app\oracle\oradata\orcl12\orcl\TP_TEMPORARY_01.DBF' SIZE 52428800 AUTOEXTEND ON NEXT 104857600 MAXSIZE 34359721984 
-    EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1048576;
-
--- Ex. 4
-CREATE USER grupo2 IDENTIFIED BY pass  
-DEFAULT TABLESPACE TP_AEBD
-TEMPORARY TABLESPACE TP_TEMP
-PASSWORD EXPIRE ;
-
-ALTER USER grupo2 QUOTA UNLIMITED ON TP_AEBD;
-
--- Grants do grupo2
-GRANT "DBA" TO grupo2 ;
-
-GRANT CREATE SESSION TO grupo2 ;
-GRANT CREATE TABLE TO grupo2 ;
-
--- Teste da conecçao
-connect grupo2/pass;
-
-show user;
-
-
 CREATE TABLE db(
     id_db number(30) NOT NULL,
     name varchar(200) NOT NULL,
@@ -112,4 +82,3 @@ CREATE TABLE datafile(
         FOREIGN KEY (id_tablespace_FK)
         REFERENCES tablespace(id_tablespace)
     );
-    
