@@ -65,7 +65,7 @@ public class Inserts {
                 oc = BDConnection.getBDConnection_group();
                 PreparedStatement ps = oc.prepareStatement(s);
                 
-                /*TODO: acabar isto com base no insert db. inserir role como se inseriu nr_sessions.*/
+                /*TODO: acabar isto com base no insert db. como inserri role?.*/
                 while(rs.next())
                 {
                     String um = rs.getString(1);
@@ -100,25 +100,27 @@ public class Inserts {
         
         public static void insertTablespace(ResultSet rs) {
             
-            String s = "insert into tablespace (maximumsize, ts_size, name, type, autoextend, freespace, timestamp) values (?,?,?,?,?,null,?)";
+            String s = "insert into tablespace (name, block_size, max_size, status, contents, initial_extent, ts_timestamp) values (?,?,?,?,?,?,?,?)";
             try {
                 oc = BDConnection.getBDConnection_group();
                 PreparedStatement ps = oc.prepareStatement(s);
                 
                 while(rs.next())
                 {
-                    String um = rs.getString(1);
-                    ps.setString(1, um);
-                    String dois = rs.getString(2);
-                    ps.setString(2, dois);
-                    String tres = rs.getString(3);
-                    ps.setString(3, tres);
-                    String quatro = rs.getString(4);
-                    ps.setString(4, quatro);
-                    String cinco = rs.getString(5);
-                    ps.setString(5, cinco);
-                    ps.setString(6, timestamp);
-                    
+                    String name = rs.getString(1);
+                    ps.setString(1, name);
+                    String b_size = rs.getString(2);
+                    ps.setString(2, b_size);
+                    String m_size = rs.getString(3);
+                    ps.setString(3, m_size);
+                    String status = rs.getString(4);
+                    ps.setString(4, status);
+                    String contents = rs.getString(5);
+                    ps.setString(5, contents);
+                    String i_extent = rs.getString(6);
+                    ps.setString(6, i_extent);
+                    ps.setString(7, timestamp);
+                    ps.setString(8, id_db);
                     ps.executeUpdate();
                 }
                 rs.close();
@@ -136,29 +138,23 @@ public class Inserts {
         }
         
         public static void insertMemory(ResultSet rs) {
-            String s = "insert into memory (bytes, spapool, statistic, timestamp) values (?,?,?,?)";
+            String s = "insert into memory (pool, alloc_bytes, used_bytes, populated_status, mem_timestamp, id_db) values (?,?,?,?,?,?)";
             try {
                 oc = BDConnection.getBDConnection_group();
                 PreparedStatement ps = oc.prepareStatement(s);
                 
                 while(rs.next())
                 {
-                    String um = rs.getString(1);
-                    String fst = null;
-                    String dois = rs.getString(2);
-                    if (Integer.parseInt(um) == 0) {
-                        fst = 0 + "";
-                    }
-                    else { 
-                        int aux = (Integer.parseInt(dois) * 100)/Integer.parseInt(um);
-                        fst = aux + "";
-                    }
-                    ps.setString(1, fst);
-                    String tres = rs.getString(3);
-                    ps.setString(2, tres);
-                    String quatro = rs.getString(4);
-                    ps.setString(3, quatro);
-                    ps.setString(4, timestamp);
+                    String pool = rs.getString(1);
+                    ps.setString(1, pool);
+                    String a_bytes = rs.getString(2);
+                    ps.setString(2, a_bytes);
+                    String u_bytes = rs.getString(3);
+                    ps.setString(3, u_bytes);
+                    String p_status = rs.getString(4);
+                    ps.setString(4, p_status);
+                    ps.setString(5, timestamp);
+                    ps.setString(6, id_db);
                     
                     ps.executeUpdate();
                 }
@@ -180,30 +176,21 @@ public class Inserts {
         
         public static void insertDatafile(ResultSet rs) {
             String s 
-                    = "insert into datafile (freespace, autoextend, name, status, maximumsize, df_size, id_tablespace, timestamp) values (?,?,?,?,?,?,(select ID_TABLESPACE from tablespace where tablespace.name = ? and timestamp = ?),?)";
+                    = "insert into datafile (name, bytes, df_timestamp, id_tablespace) values (?,?,?,(select ID_TABLESPACE from tablespace where tablespace.name = ? and timestamp = ?))";
             try {
                 oc = BDConnection.getBDConnection_group();
                 PreparedStatement ps = oc.prepareStatement(s);
                  
                 while(rs.next())
                 {
-                    String free = rs.getString(4);
-                    String auto = rs.getString(5);
                     String name = rs.getString(1);
-                    String status = rs.getString(6);
-                    String ms = rs.getString(2);
-                    String size = rs.getString(3);
-                    String tablespace_name = rs.getString(7);
-                    
-                    ps.setString(1, free);
-                    ps.setString(2, auto);
-                    ps.setString(3, name);
-                    ps.setString(4, status);
-                    ps.setString(5, ms);
-                    ps.setString(6, size);
-                    ps.setString(7, tablespace_name);
-                    ps.setString(8, timestamp);
-                    ps.setString(9, timestamp);
+                    ps.setString(1, name);
+                    String bytes = rs.getString(2);
+                    ps.setString(2, bytes);
+                    ps.setString(3, timestamp);
+                    String ts_name = rs.getString(3);
+                    ps.setString(4, ts_name);
+                    ps.setString(5,timestamp);
                     
                     ps.executeUpdate();
                 }
@@ -223,7 +210,7 @@ public class Inserts {
         
                 public static void insertDB(ResultSet rs) {
             
-                String s = "insert into db (id_db, name, plataform, data_storage, db_timestamp, number_sessions) values (?,?,?,?,?)";
+                String s = "insert into db (id_db, name, plataform, data_storage, db_timestamp, number_sessions) values (?,?,?,?,(Select count(*) from V_$SESSION))";
             try {
                 oc = BDConnection.getBDConnection_group();
                 PreparedStatement ps = oc.prepareStatement(s);
@@ -233,14 +220,7 @@ public class Inserts {
                 String platform = rs.getString(3);  
                     
                 int data_storage = 0;
-                /*todo*/
-                
-                
-                int nr_s =0;
-                ResultSet number_sessions = Selects.select_sessions();
-                number_sessions.next();
-                nr_s = number_sessions.getInt(1);
-                
+                /*todo*/          
                     
                 ps.setString(1, name);
                 ps.setString(2, platform);
