@@ -1,2 +1,3 @@
 # AEBD1819
-Trabalho
+
+Trabalho de Administração e Exploração de Bases de Dados 2018/2019
