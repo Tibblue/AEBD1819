@@ -16,13 +16,13 @@ PASSWORD EXPIRE ;
 
 ALTER USER grupo2 QUOTA UNLIMITED ON TP_AEBD;
 
--- Ex.5
+-- Grants do grupo2
 GRANT "DBA" TO grupo2 ;
 
 GRANT CREATE SESSION TO grupo2 ;
 GRANT CREATE TABLE TO grupo2 ;
 
--- Ex.7
+-- Teste da conecçao
 connect grupo2/pass;
 
 show user;
@@ -47,11 +47,11 @@ CREATE TABLE memory(
     mem_timestamp timestamp NOT NULL,
     id_db_FK number(20) NOT NULL,
     CONSTRAINT id_memory PRIMARY KEY (id_memory),
-    CONSTRAINT id_db_FK
-        FOREIGN KEY (id_db)
+    CONSTRAINT id_db_memory
+        FOREIGN KEY (id_db_FK)
         REFERENCES db(id_db)
     );
-
+    
 CREATE TABLE cpu(
     id_cpu number(30) NOT NULL,
     cpu_count number(20) NOT NULL,
@@ -61,27 +61,25 @@ CREATE TABLE cpu(
     cpu_timestamp timestamp NOT NULL,
     id_db_FK number(20) NOT NULL,
     CONSTRAINT id_cpu PRIMARY KEY (id_cpu),
-    CONSTRAINT id_db_FK
-        FOREIGN KEY (id_db)
+    CONSTRAINT id_db_cpu
+        FOREIGN KEY (id_db_FK)
         REFERENCES db(id_db)
-    
     );
 
-
-CREATE TABLE user(
-    id_user number(30) NOT NULL,
+CREATE TABLE usersDB(
+    id_usersDB number(30) NOT NULL,
     username varchar(70) NOT NULL,
     account_status varchar(70) NOT NULL,
     default_ts varchar(70) NOT NULL,
     temp_ts varchar(70) NOT NULL,
     last_login timestamp NOT NULL, 
-    role varchar(30) NOT NULL,
-    session varchar(30) NOT NULL,
+    roleDB varchar(30) NOT NULL,
+    sessionDB varchar(30) NOT NULL,
     user_timestamp timestamp NOT NULL,
     id_db_FK number(20) NOT NULL,
-    CONSTRAINT id_user PRIMARY KEY (id_user),
-    CONSTRAINT id_db_FK
-        FOREIGN KEY (id_db)
+    CONSTRAINT id_usersDB PRIMARY KEY (id_usersDB),
+    CONSTRAINT id_db_users
+        FOREIGN KEY (id_db_FK)
         REFERENCES db(id_db)
     );
 
@@ -89,7 +87,7 @@ CREATE TABLE user(
 CREATE TABLE tablespace(
     id_tablespace number(30) NOT NULL,
     name varchar(20) NOT NULL,
-    block_size number(70) NOT NULL,
+    block_size number(20) NOT NULL,
     max_size number(20) NOT NULL,
     status varchar(20) NOT NULL,
     contents varchar(30) NOT NULL,
@@ -97,8 +95,8 @@ CREATE TABLE tablespace(
     tablespace_timestamp timestamp NOT NULL,
     id_db_FK number(20) NOT NULL,
     CONSTRAINT id_tablespace PRIMARY KEY (id_tablespace),
-    CONSTRAINT id_db_FK
-        FOREIGN KEY (id_db)
+    CONSTRAINT id_db_tablespace
+        FOREIGN KEY (id_db_FK)
         REFERENCES db(id_db)
     );
 
@@ -106,12 +104,12 @@ CREATE TABLE tablespace(
 CREATE TABLE datafile(
     id_datafile number(30) NOT NULL,
     name varchar(20) NOT NULL,
-    bytes numeric(70) NOT NULL,
+    bytes number(20) NOT NULL,
     id_tablespace_FK numeric(20) NOT NULL,
     datafile_timestamp timestamp NOT NULL,
     CONSTRAINT id_datafile PRIMARY KEY (id_datafile),
-    CONSTRAINT id_tablespace_FK
-        FOREIGN KEY (id_tablespace)
+    CONSTRAINT id_tablespace_datafile
+        FOREIGN KEY (id_tablespace_FK)
         REFERENCES tablespace(id_tablespace)
     );
     
