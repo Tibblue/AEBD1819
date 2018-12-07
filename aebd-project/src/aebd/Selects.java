@@ -11,21 +11,21 @@ public class Selects {
 	
     private static Connection c_root;
     private static Connection c_plug;
-    private static Connection c_group;
+
             
         public Selects() {
             c_root = BDConnection.getBDConnection_root();
             c_plug = BDConnection.getBDConnection_plug();
-            c_group = BDConnection.getBDConnection_group();
         }
-    
+        
+            
 	public static ResultSet selectCPU() {
             
             ResultSet rs = null;
             
             PreparedStatement ps;
             try {
-                ps = c.prepareStatement("SELECT * FROM DBA_CPU_USAGE_STATISTICS");
+                ps = c_root.prepareStatement("SELECT *  FROM DBA_CPU_USAGE_STATISTICS");
                 rs = ps.executeQuery();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -38,8 +38,8 @@ public class Selects {
             ResultSet rs = null;
                 
             try {
-                c = BDConnection.getBDConnection();
-                PreparedStatement ps = c.prepareStatement("SELECT USERNAME, EXPIRY_DATE, CREATED, COMMON, ACCOUNT_STATUS, PROFILE, DEFAULT_TABLESPACE, TEMPORARY_TABLESPACE FROM DBA_USERS");
+                c_plug = BDConnection.getBDConnection_plug();
+                PreparedStatement ps = c_plug.prepareStatement("SELECT USERNAME, ACCOUNT_STATUS, DEFAULT_TABLESPACE, TEMPORARY_TABLESPACE, LAST_LOGIN FROM DBA_USERS");
                 rs = ps.executeQuery();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -48,26 +48,13 @@ public class Selects {
             return rs;
         }
 	
-	public static ResultSet selectPrivilege() {
-		
-            ResultSet rs = null;
-                
-            try {
-                PreparedStatement ps = c.prepareStatement("SELECT GRANTEE, PRIVILEGE, ADMIN_OPTION FROM DBA_SYS_PRIVS");
-                rs = ps.executeQuery();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-		
-            return rs;
-	}
 	
 	public static ResultSet selectTablespace() {
 		
             ResultSet rs = null;
                 
             try {
-                PreparedStatement ps = c.prepareStatement("SELECT MAX_SIZE, BLOCK_SIZE, TABLESPACE_NAME, CONTENTS, NEXT_EXTENT, INITIAL_EXTENT FROM DBA_TABLESPACES");
+                PreparedStatement ps = c_plug.prepareStatement("SELECT TABLESPACE_NAME, BLOCK_SIZE,  MAX_SIZE, STATUS, CONTENTS, INITIAL_EXTENT,   FROM DBA_TABLESPACES");
                 rs = ps.executeQuery();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -81,7 +68,7 @@ public class Selects {
             ResultSet rs = null;
                 
             try {
-                PreparedStatement ps = c.prepareStatement("SELECT ALLOC_BYTES, USED_BYTES, POOL, POPULATE_STATUS FROM V$INMEMORY_AREA");
+                PreparedStatement ps = c_root.prepareStatement("SELECT ALLOC_BYTES, USED_BYTES, POOL, POPULATE_STATUS FROM V$INMEMORY_AREA");
                 rs = ps.executeQuery();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -95,7 +82,7 @@ public class Selects {
             ResultSet rs = null;
                 
             try {
-                PreparedStatement ps = c.prepareStatement("SELECT Substr(df.file_name,1,80) \"File Name\"," +
+                PreparedStatement ps = c_plug.prepareStatement("SELECT Substr(df.file_name,1,80) \"File Name\"," +
                                                         "Round(df.bytes/1024/1024,0) \"Size (M)\"," +
                                                         "decode(e.used_bytes,NULL,0,Round(e.used_bytes/1024/1024,0)) \"Used (M)\"," +
                                                         "decode(f.free_bytes,NULL,0,Round(f.free_bytes/1024/1024,0)) \"Free (M)\"," +
@@ -123,12 +110,12 @@ public class Selects {
             return rs;
 	}
         
-        public static ResultSet selectRole() {
+        public static ResultSet selectDB() {
            
             ResultSet rs = null;
                 
             try {
-                PreparedStatement ps = c.prepareStatement("SELECT ROLE, AUTHENTICATION_TYPE, COMMON FROM DBA_ROLES");
+                PreparedStatement ps = c_plug.prepareStatement("SELECT dbid, name, platform FROM V$DATABASE");
                 rs = ps.executeQuery();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -137,12 +124,12 @@ public class Selects {
             return rs;
 	}
         
-        public static ResultSet selectSession() {
+        public static ResultSet select_sessions() {
            
             ResultSet rs = null;
                 
             try {
-                PreparedStatement ps = c.prepareStatement("SELECT TYPE, COMMAND, MODULE, MACHINE, OSUSER, STATUS, SQL_ID, SQL_CHILD_NUMBER, SECONDS_IN_WAIT, USERNAME FROM V$SESSION");
+                PreparedStatement ps = c_plug.prepareStatement("Select count(*) from V_$SESSION");
                 rs = ps.executeQuery();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -150,6 +137,5 @@ public class Selects {
 		
             return rs;
 	}
-        
 }
-
+        
