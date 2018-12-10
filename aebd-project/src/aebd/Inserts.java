@@ -16,7 +16,7 @@ public class Inserts {
     }
     
     public static void insertCPU(ResultSet rs) {
-        String s = "insert into cpu (cpu_count, db_version, cpu_core_count,cpu_socket_count,cpu_timestamp) values (?,?,?,?,?,)";
+        String s = "insert into cpu (cpu_count, db_version, cpu_core_count, cpu_socket_count, cpu_timestamp) values (?,?,?,?,?)";
         try {
             oc = BDConnection.getBDConnection_group();
             PreparedStatement ps = oc.prepareStatement(s);
@@ -49,12 +49,12 @@ public class Inserts {
     }
     
     public static void insertUsers(ResultSet rs) {
-        String s = "insert into db_users (username, account_status, default_ts, temp_ts, last_login, user_timestamp, id_db, role) values (?,?,?,?,?,?,?,?,?)";
+        String s = "insert into db_users (username, account_status, default_ts, temp_ts, last_login, user_timestamp, id_db, role) values (?,?,?,?,?,?,?,?)";
         try {
             oc = BDConnection.getBDConnection_group();
             PreparedStatement ps = oc.prepareStatement(s);
 
-            /*TODO: acabar isto com base no insert db. como inserri role?.*/
+            /*TODO: acabar isto com base no insert db. como inserir role?.*/
             while(rs.next()) {
                 String um = rs.getString(1);
                 ps.setString(1, um);
@@ -186,7 +186,7 @@ public class Inserts {
     }
         
     public static void insertDB(ResultSet rs) {
-        String s = "insert into db (id_db, name, plataform, data_storage, db_timestamp, number_sessions) values (?,?,?,?,(Select count(*) from V_$SESSION))";
+        String s = "insert into db (id_db, name, plataform, data_storage, db_timestamp, number_sessions) values (?,?,?,(Select sum(bytes) from DBA_DATA_FILES) ,?,(Select count(*) from V_$SESSION))";
         try {
             oc = BDConnection.getBDConnection_group();
             PreparedStatement ps = oc.prepareStatement(s);
@@ -195,14 +195,10 @@ public class Inserts {
             String name = rs.getString(2);
             String platform = rs.getString(3);  
 
-            int data_storage = 0;
-            // todo
-
-            ps.setString(1, name);
-            ps.setString(2, platform);
-            ps.setString(3, Integer.toString(data_storage));
+            ps.setString(1,id_db);
+            ps.setString(2, name);
+            ps.setString(3, platform);
             ps.setString(4, timestamp);
-            ps.setString(5, Integer.toString(nr_s));
 
             ps.executeUpdate();
 
