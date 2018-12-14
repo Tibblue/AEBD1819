@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="ml" id="20A80DC2-E49E-E761-D160-84621A90A17C" version="3.5">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 09:55:26 UTC</createdTime>
+<ownerDesignName>ml</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>20A80DC2-E49E-E761-D160-84621A90A17C</designId>
+</OSDM_Design>
