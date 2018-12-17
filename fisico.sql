@@ -8,7 +8,7 @@ CREATE TEMPORARY TABLESPACE TP_TEMP
         '\u01\app\oracle\oradata\orcl12\orcl\TP_TEMPORARY_01.DBF' SIZE 52428800 AUTOEXTEND ON NEXT 104857600 MAXSIZE 34359721984 
     EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1048576;
 
--- Criação do user grupo
+-- Ex. 4
 CREATE USER grupo2 IDENTIFIED BY pass  
 DEFAULT TABLESPACE TP_AEBD
 TEMPORARY TABLESPACE TP_TEMP
@@ -23,19 +23,22 @@ GRANT CREATE SESSION TO grupo2 ;
 GRANT CREATE TABLE TO grupo2 ;
 
 -- Teste da conecçao
-connect grupo2/pass;
+connect grupo2/oracle;
 
 show user;
--- Criação das tabelas da base de dados
-DROP TABLE Memory PURGE;
-DROP TABLE CPU PURGE;
-DROP TABLE Datafile PURGE;
-DROP TABLE UsersDB PURGE;
-DROP TABLE Tablespace PURGE;
-DROP TABLE DB PURGE; 
+
+--DROP TABLE Memory PURGE;
+--DROP TABLE CPU PURGE;
+--DROP TABLE Datafile PURGE;
+--drop table UsersDB cascade constraints;
+--DROP TABLE Role cascade constraints;
+--DROP TABLE role_user cascade constraints;
+--DROP TABLE Tablespace PURGE;
+--DROP TABLE DB PURGE; 
 
 CREATE TABLE db(
     id_db number(30) NOT NULL,
+    id_db_root number(30) NOT NULL,
     name varchar(200) NOT NULL,
     platform varchar(20) NOT NULL,
     data_storage number(20) NOT NULL,
@@ -43,7 +46,7 @@ CREATE TABLE db(
     db_timestamp timestamp NOT NULL,
     CONSTRAINT id_db PRIMARY KEY (id_db)
     );
-
+    
 CREATE TABLE memory(
     id_memory number(30) NOT NULL,
     pool varchar(50) NOT NULL,
@@ -136,4 +139,108 @@ CREATE TABLE datafile(
         FOREIGN KEY (id_tablespace_FK)
         REFERENCES tablespace(id_tablespace)
     );
-    
+--DROP sequence db_seq;
+--DROP sequence memory_seq;
+--DROP sequence cpu_seq;
+--DROP sequence usersdb_seq;
+--DROP sequence role_seq;
+--DROP sequence tablespace_seq;
+--DROP sequence datafile_seq;
+CREATE sequence db_seq start with 1 increment by 1 nomaxvalue;
+CREATE sequence memory_seq start with 1 increment by 1 nomaxvalue;
+CREATE sequence cpu_seq start with 1 increment by 1 nomaxvalue;
+CREATE sequence usersdb_seq start with 1 increment by 1 nomaxvalue;
+CREATE sequence role_seq start with 1 increment by 1 nomaxvalue;
+CREATE sequence tablespace_seq start with 1 increment by 1 nomaxvalue;
+CREATE sequence datafile_seq start with 1 increment by 1 nomaxvalue;
+
+
+CREATE OR REPLACE TRIGGER db_trigger
+BEFORE INSERT ON db
+FOR EACH ROW
+ WHEN (new.id_db IS NULL) 
+BEGIN
+  SELECT  db_seq.nextval
+  INTO :new.id_db
+  FROM dual;
+END;
+/
+
+CREATE OR REPLACE TRIGGER memory_trigger
+BEFORE INSERT ON memory
+FOR EACH ROW
+ WHEN (new.id_memory IS NULL) 
+BEGIN
+  SELECT  memory_seq.nextval
+  INTO :new.id_memory
+  FROM dual;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER cpu_trigger
+BEFORE INSERT ON cpu
+FOR EACH ROW
+ WHEN (new.id_cpu IS NULL) 
+BEGIN
+  SELECT  cpu_seq.nextval
+  INTO :new.id_cpu
+  FROM dual;
+END;
+/
+        
+
+CREATE OR REPLACE TRIGGER usersDB_trigger
+BEFORE INSERT ON usersDB
+FOR EACH ROW
+ WHEN (new.id_usersDB IS NULL) 
+BEGIN
+  SELECT  usersDB_seq.nextval
+  INTO :new.id_usersDB
+  FROM dual;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER role_trigger
+BEFORE INSERT ON role
+FOR EACH ROW
+ WHEN (new.id_role IS NULL) 
+BEGIN
+  SELECT  role_seq.nextval
+  INTO :new.id_role
+  FROM dual;
+END;
+/  
+        
+
+CREATE OR REPLACE TRIGGER tablespace_trigger
+BEFORE INSERT ON tablespace
+FOR EACH ROW
+ WHEN (new.id_tablespace IS NULL) 
+BEGIN
+  SELECT  tablespace_seq.nextval
+  INTO :new.id_tablespace
+  FROM dual;
+END;
+/  
+        
+
+CREATE OR REPLACE TRIGGER datafile_trigger
+BEFORE INSERT ON datafile
+FOR EACH ROW
+ WHEN (new.id_datafile IS NULL) 
+BEGIN
+  SELECT  datafile_seq.nextval
+  INTO :new.id_datafile
+  FROM dual;
+END;
+/         
+        
+--DROP trigger db_trigger;
+--DROP trigger cpu_trigger;
+--DROP trigger memory_trigger;
+--DROP trigger usersdb_trigger;
+--DROP trigger role_trigger;
+--DROP trigger tablespace_trigger;
+--DROP trigger datafile_trigger;
