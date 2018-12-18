@@ -15,7 +15,6 @@ public class BDConnection {
     public static final String DB_USER = "sys as sysdba";
     public static final String DB_PASSWORD = "oracle";
     public static final String DB_USER_GROUP = "grupo2";
-    public static final String DB_PASSWORD_GROUP = "pass";
     
     public static Connection getBDConnection(String conn, String user, String pw) {
     	Connection oc = null;
@@ -45,7 +44,7 @@ public class BDConnection {
     }
     
     public static Connection getBDConnection_group() {
-    	return getBDConnection(DB_CONNECTION_PLUG, DB_USER_GROUP, DB_PASSWORD_GROUP);
+    	return getBDConnection(DB_CONNECTION_PLUG, DB_USER_GROUP, DB_PASSWORD);
     }
     
     public String connTest() throws SQLException {
@@ -63,15 +62,6 @@ public class BDConnection {
         System.out.println(s);
     	
     	return s;
-    }
-    
-    public void grant() throws SQLException {
-    	String query = "alter session set \"_ORACLE_SCRIPT\"=true;\r\n" + 
-    			"";
-    	
-    	PreparedStatement ps = getBDConnection_root().prepareStatement(query);
-    	ps.executeQuery();
-    }
-    	
+    }  	
 }
     

@@ -2,13 +2,14 @@
 CREATE TABLESPACE TP_AEBD 
     DATAFILE 
         '\u01\app\oracle\oradata\orcl12\orcl\TP_AEBD_01.DBF' SIZE 104857600;
+
 --TABLESPACE TP_TEMP   
 CREATE TEMPORARY TABLESPACE TP_TEMP 
     TEMPFILE 
         '\u01\app\oracle\oradata\orcl12\orcl\TP_TEMPORARY_01.DBF' SIZE 52428800 AUTOEXTEND ON NEXT 104857600 MAXSIZE 34359721984 
     EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1048576;
 
--- Ex. 4
+--USER grupo2
 CREATE USER grupo2 IDENTIFIED BY pass  
 DEFAULT TABLESPACE TP_AEBD
 TEMPORARY TABLESPACE TP_TEMP
@@ -16,17 +17,18 @@ PASSWORD EXPIRE ;
 
 ALTER USER grupo2 QUOTA UNLIMITED ON TP_AEBD;
 
--- Grants do grupo2
+-- GRANTS to grupo2
 GRANT "DBA" TO grupo2 ;
 
 GRANT CREATE SESSION TO grupo2 ;
 GRANT CREATE TABLE TO grupo2 ;
 
--- Teste da conecçao
-connect grupo2/oracle;
+-- TEST CONNECTION
+connect grupo2/pass;
 
 show user;
 
+-- TABLE DROPS
 --DROP TABLE Memory PURGE;
 --DROP TABLE CPU PURGE;
 --DROP TABLE Datafile PURGE;
@@ -36,6 +38,8 @@ show user;
 --DROP TABLE Tablespace PURGE;
 --DROP TABLE DB PURGE; 
 
+
+-- MODELO FISICO
 CREATE TABLE db(
     id_db number(30) NOT NULL,
     id_db_root number(30) NOT NULL,
@@ -43,7 +47,7 @@ CREATE TABLE db(
     platform varchar(20) NOT NULL,
     data_storage number(20) NOT NULL,
     number_sessions number(20) NOT NULL,
-    db_timestamp timestamp NOT NULL,
+    db_timestamp varchar(50) NOT NULL,
     CONSTRAINT id_db PRIMARY KEY (id_db)
     );
     
@@ -53,7 +57,7 @@ CREATE TABLE memory(
     allocBytes number(20) NOT NULL,
     usedBytes number(20) NOT NULL,
     populated_status varchar(90) NOT NULL,
-    mem_timestamp timestamp NOT NULL,
+    mem_timestamp varchar(50) NOT NULL,
     id_db_FK number(20) NOT NULL,
     CONSTRAINT id_memory PRIMARY KEY (id_memory),
     CONSTRAINT id_db_memory
@@ -67,7 +71,7 @@ CREATE TABLE cpu(
     db_version varchar(70) NOT NULL,
     cpu_coreCount number(20) NOT NULL,
     cpu_socketCount number(20) NOT NULL,
-    cpu_timestamp timestamp NOT NULL,
+    cpu_timestamp varchar(50) NOT NULL,
     id_db_FK number(20) NOT NULL,
     CONSTRAINT id_cpu PRIMARY KEY (id_cpu),
     CONSTRAINT id_db_cpu
@@ -81,8 +85,8 @@ CREATE TABLE usersDB(
     account_status varchar(70) NOT NULL,
     default_ts varchar(70) NOT NULL,
     temp_ts varchar(70) NOT NULL,
-    last_login timestamp NOT NULL, 
-    user_timestamp timestamp NOT NULL,
+    last_login varchar(200) NOT NULL, 
+    user_timestamp varchar(50) NOT NULL,
     id_db_FK number(20) NOT NULL,
     CONSTRAINT id_usersDB PRIMARY KEY (id_usersDB),
     CONSTRAINT id_db_users
@@ -119,7 +123,7 @@ CREATE TABLE tablespace(
     status varchar(20) NOT NULL,
     contents varchar(30) NOT NULL,
     initial_extent number(20) NOT NULL,
-    tablespace_timestamp timestamp NOT NULL,
+    tablespace_timestamp varchar(50) NOT NULL,
     id_db_FK number(20) NOT NULL,
     CONSTRAINT id_tablespace PRIMARY KEY (id_tablespace),
     CONSTRAINT id_db_tablespace
@@ -133,12 +137,14 @@ CREATE TABLE datafile(
     name varchar(20) NOT NULL,
     bytes number(20) NOT NULL,
     id_tablespace_FK numeric(20) NOT NULL,
-    df_timestamp timestamp NOT NULL,
+    df_timestamp varchar(50) NOT NULL,
     CONSTRAINT id_datafile PRIMARY KEY (id_datafile),
     CONSTRAINT id_tablespace_datafile
         FOREIGN KEY (id_tablespace_FK)
         REFERENCES tablespace(id_tablespace)
     );
+
+--SEQUENCE DROPS
 --DROP sequence db_seq;
 --DROP sequence memory_seq;
 --DROP sequence cpu_seq;
@@ -146,6 +152,8 @@ CREATE TABLE datafile(
 --DROP sequence role_seq;
 --DROP sequence tablespace_seq;
 --DROP sequence datafile_seq;
+
+--SEQUENCES
 CREATE sequence db_seq start with 1 increment by 1 nomaxvalue;
 CREATE sequence memory_seq start with 1 increment by 1 nomaxvalue;
 CREATE sequence cpu_seq start with 1 increment by 1 nomaxvalue;
@@ -155,6 +163,7 @@ CREATE sequence tablespace_seq start with 1 increment by 1 nomaxvalue;
 CREATE sequence datafile_seq start with 1 increment by 1 nomaxvalue;
 
 
+-- TRIGGERS
 CREATE OR REPLACE TRIGGER db_trigger
 BEFORE INSERT ON db
 FOR EACH ROW
@@ -236,7 +245,8 @@ BEGIN
   FROM dual;
 END;
 /         
-        
+
+--TRIGGER DROPS
 --DROP trigger db_trigger;
 --DROP trigger cpu_trigger;
 --DROP trigger memory_trigger;
