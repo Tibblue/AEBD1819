@@ -52,14 +52,14 @@ CREATE TABLE db(
     );
     
 CREATE TABLE memory(
-    id_memory number(30) NOT NULL,
+    id_mem number(30) NOT NULL,
     pool varchar(50) NOT NULL,
-    allocBytes number(20) NOT NULL,
-    usedBytes number(20) NOT NULL,
+    alloc_bytes number(20) NOT NULL,
+    used_bytes number(20) NOT NULL,
     populated_status varchar(90) NOT NULL,
     mem_timestamp varchar(50) NOT NULL,
     id_db_FK number(20) NOT NULL,
-    CONSTRAINT id_memory PRIMARY KEY (id_memory),
+    CONSTRAINT id_mem PRIMARY KEY (id_mem),
     CONSTRAINT id_db_memory
         FOREIGN KEY (id_db_FK)
         REFERENCES db(id_db)
@@ -69,8 +69,8 @@ CREATE TABLE cpu(
     id_cpu number(30) NOT NULL,
     cpu_count number(20) NOT NULL,
     db_version varchar(70) NOT NULL,
-    cpu_coreCount number(20) NOT NULL,
-    cpu_socketCount number(20) NOT NULL,
+    cpu_core_count number(20) NOT NULL,
+    cpu_socket_count number(20) NOT NULL,
     cpu_timestamp varchar(50) NOT NULL,
     id_db_FK number(20) NOT NULL,
     CONSTRAINT id_cpu PRIMARY KEY (id_cpu),
@@ -123,7 +123,7 @@ CREATE TABLE tablespace(
     status varchar(20) NOT NULL,
     contents varchar(30) NOT NULL,
     initial_extent number(20) NOT NULL,
-    tablespace_timestamp varchar(50) NOT NULL,
+    ts_timestamp varchar(50) NOT NULL,
     id_db_FK number(20) NOT NULL,
     CONSTRAINT id_tablespace PRIMARY KEY (id_tablespace),
     CONSTRAINT id_db_tablespace
@@ -178,10 +178,10 @@ END;
 CREATE OR REPLACE TRIGGER memory_trigger
 BEFORE INSERT ON memory
 FOR EACH ROW
- WHEN (new.id_memory IS NULL) 
+ WHEN (new.id_mem IS NULL) 
 BEGIN
   SELECT  memory_seq.nextval
-  INTO :new.id_memory
+  INTO :new.id_mem
   FROM dual;
 END;
 /
