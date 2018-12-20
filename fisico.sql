@@ -105,6 +105,7 @@ CREATE TABLE role(
 CREATE TABLE role_user(
     user_id_user number(30) NOT NULL,
     role_id_role number(30) NOT NULL,
+    CONSTRAINT user_role_user PRIMARY KEY (user_role_user, role_role_user),
     CONSTRAINT user_role_user
         FOREIGN KEY (user_id_user)
         REFERENCES usersDB(id_user),

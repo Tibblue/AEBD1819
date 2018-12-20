@@ -12,22 +12,23 @@ public class Main {
        
         // TIMER
         int timer = 0;
-        
-        // Open connections
-        System.out.println("---------------------------------------------Start Connections---------------------------------------------");
-        BDConnection connect = new BDConnection();
-        
+                
         while (true) {
             System.out.println(timer + " seg");
+            
+            //START
             Monitor.start();
+            
+            timer += 15;
+            System.out.println("--------------------------------------------- END ---------------------------------------------");
+            
             try {
                 sleep(15000); //15 segundos
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
             
-            timer += 15;
-            System.out.println("--------------------------------------------- END ---------------------------------------------");
+            
         }
     }
 }

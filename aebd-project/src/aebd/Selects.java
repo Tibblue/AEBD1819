@@ -14,7 +14,14 @@ public class Selects {
         c_plug = BDConnection.getBDConnection_plug();
     }
             
-
+    
+    public Connection getRoot(){
+        return c_root;
+    }
+    
+    public Connection getPlug(){
+        return c_plug;
+    }
 
      public static ResultSet selectDB() {
         ResultSet rs = null;
@@ -24,7 +31,6 @@ public class Selects {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
         return rs;
     }
      
@@ -89,7 +95,7 @@ public class Selects {
     public static ResultSet selectDatafile() {
         ResultSet rs = null;
         try {
-            PreparedStatement ps = c_plug.prepareStatement("SELECT FILE_NAME, BYTES, TABLESPACE_NAME FROM DBA_DATA_FILES");
+            PreparedStatement ps = c_plug.prepareStatement("SELECT FILE_NAME, BYTES, TABLESPACE_NAME  FROM DBA_DATA_FILES UNION SELECT FILE_NAME, BYTES, TABLESPACE_NAME  FROM DBA_TEMP_FILES");
             rs = ps.executeQuery();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -102,7 +108,6 @@ public class Selects {
         public static ResultSet selectRole() {
         ResultSet rs = null;
         try {
-            c_plug = BDConnection.getBDConnection_plug();
             PreparedStatement ps = c_plug.prepareStatement("SELECT ROLE_ID, ROLE FROM DBA_ROLES");
             rs = ps.executeQuery();
         } catch (SQLException ex) {
@@ -115,7 +120,6 @@ public class Selects {
     public static ResultSet selectUser() {
         ResultSet rs = null;
         try {
-            c_plug = BDConnection.getBDConnection_plug();
             PreparedStatement ps = c_plug.prepareStatement("SELECT USERNAME, ACCOUNT_STATUS, DEFAULT_TABLESPACE, TEMPORARY_TABLESPACE, NVL(TO_CHAR(LAST_LOGIN),'undefined') FROM DBA_USERS");
             rs = ps.executeQuery();
         } catch (SQLException ex) {
