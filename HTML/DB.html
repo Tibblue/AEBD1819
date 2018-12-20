@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>DB</title>
+  <script type="text/javascript" src="convert.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="w3.css">
+  <style> 
+    td, th {
+      text-align:center;
+    }
+  </style>
+</head>
+<body style="background-color:lightgray;">
+  <h1 align="center">DataBase</h1>
+  <p>&nbsp;</p>
+
+  <table id="excelDataTable" border="1" align="center" bgcolor="white">
+  </table>
+	<script>
+    $(document).ready(function(){
+      var test = 'http://localhost:8080/ords/grupo2/db/?q={"$orderby":{"id_db":"ASC"}}'
+      $.getJSON(test, function (json) {
+        console.log("JSON returnado pela BD")
+        console.dir(json)
+        console.log("JSON apenas com a lista de objetos")
+        console.dir(json.items)
+        // var myList = JSON.stringify(items);
+        // var myFinal = JSON.parse(myList);
+        buildHtmlTable('#excelDataTable', json.items);
+      });
+    });
+  </script>
+  
+  <p>&nbsp;</p>
+  <h3 align="center">
+    <a href="Index.html"> <font color="gray">Index</font></a>
+  </h3>
+  
+</body>
+</html>

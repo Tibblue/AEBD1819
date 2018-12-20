@@ -1,14 +1,4 @@
-/*
-var myList = [
-	{"first_name": "John","last_name": "Doe","age": 30},
-	{"first_name": "Steven","last_name": "Williams","gender": "male"},
-	{"first_name": "Mary","last_name": "Troy","age": 19},
-	{"first_name": "Natalia","last_name": "Will","age": 44,"gender": "female"}
-];
-*/
-
 function buildHtmlTable(selector, myList) {
-	
   var columns = addAllColumnHeaders(selector, myList);
 
   for (var i = 0; i < myList.length; i++) {
@@ -24,18 +14,21 @@ function buildHtmlTable(selector, myList) {
 
 function addAllColumnHeaders(selector, myList) {
   var columnSet = [];
-  var headerTr$ = $('<tr/>');
+  var headerTR$ = $('<tr/>');
 
+  // TODO verificar se é preciso verificar todos os elementos
+  // problema elementos vazios no primeiro elemento
   for (var i = 0; i < myList.length; i++) {
-    var rowHash = myList[i];
-    for (var key in rowHash) {
-      if ($.inArray(key, columnSet) == -1) {
-        columnSet.push(key);
-        headerTr$.append($('<th/>').html(key));
+    var elem = myList[i];
+      for (var attrib in elem) {
+        // se o attrib nao estiver no columnSet adiciona
+        if ($.inArray(attrib, columnSet) == -1) {
+          columnSet.push(attrib);
+          headerTR$.append($('<th/>').html(attrib));
+        }
       }
-    }
   }
-  $(selector).append(headerTr$);
+  $(selector).append(headerTR$);
 
   return columnSet;
 }
