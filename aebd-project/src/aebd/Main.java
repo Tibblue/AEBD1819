@@ -14,7 +14,7 @@ public class Main {
         int timer = 0;
         
         // Open connections
-        System.out.println("Start Connections");
+        System.out.println("---------------------------------------------Start Connections---------------------------------------------");
         BDConnection connect = new BDConnection();
         
         while (true) {
@@ -27,6 +27,7 @@ public class Main {
             }
             
             timer += 15;
+            System.out.println("--------------------------------------------- END ---------------------------------------------");
         }
     }
 }

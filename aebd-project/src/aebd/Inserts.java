@@ -54,16 +54,12 @@ public class Inserts {
                     insertRoles(result);
 
                      // USERS            
-                     System.out.println("Load USERS");
+                     System.out.println("Load USERS and UserRoles");
                     result = sl.selectUser();
                     insertUsers(result);
 
-                     // USERS and ROLES            
-                     System.out.println("Load UserRoles");
-                    insertRoleUser();
-
                      // TABLESPACES            
-                     System.out.println("Load TABLESPACES");
+                     System.out.println("Load TABLESPACES and DATAFILES");
                     result = sl.selectTablespace();
                     insertTablespace(result);
 
@@ -152,7 +148,6 @@ public class Inserts {
                 ps.executeUpdate();
 
             // DATAFILES            
-            System.out.println("Load DATAFILES");
             result = sl.selectDatafile();
             insertDatafile(result);
             
@@ -198,9 +193,7 @@ public class Inserts {
                 ps.executeUpdate();
             }
             rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException e) {}
     }
     
     public static void insertUsers(ResultSet rs) {
@@ -222,6 +215,9 @@ public class Inserts {
                 ps.setString(6, timestamp);
 
                 ps.executeUpdate();
+                
+                // USERS and ROLES            
+                insertRoleUser();
             }
             rs.close();
         } catch (SQLException e) {
@@ -230,7 +226,7 @@ public class Inserts {
     }
     
     public static void insertRoleUser() {
-        String s = "insert into role_user (user_id_user, role_id_role) SELECT DISTINCT id_user, id_role FROM DBA_ROLE_PRIVS inner join USERSDB on grantee = username inner join ROLE on name = granted_role";
+        String s = "insert into role_user (user_id_user, role_id_role) SELECT id_user, id_role FROM DBA_ROLE_PRIVS inner join USERSDB on grantee = username inner join ROLE on name = granted_role where id_user = usersdb_seq.currval";
         try {
             PreparedStatement ps = oc.prepareStatement(s);
         } catch (SQLException e) {
