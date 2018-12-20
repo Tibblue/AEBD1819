@@ -60,8 +60,7 @@ public class Inserts {
 
                      // USERS and ROLES            
                      System.out.println("Load UserRoles");
-                    result = sl.selectRoleUser();
-                    insertRoleUser(result);
+                    insertRoleUser();
 
                      // TABLESPACES            
                      System.out.println("Load TABLESPACES");
@@ -230,19 +229,10 @@ public class Inserts {
         }
     }
     
-    public static void insertRoleUser(ResultSet rs) {
-        String s = "insert into role_user (user_id_user, role_id_role) values ((SELECT ID_USER FROM USERSDB WHERE USERNAME = ?),(SELECT ID_ROLE FROM ROLE WHERE NAME = ?))";
+    public static void insertRoleUser() {
+        String s = "insert into role_user (user_id_user, role_id_role) SELECT DISTINCT id_user, id_role FROM DBA_ROLE_PRIVS inner join USERSDB on grantee = username inner join ROLE on name = granted_role";
         try {
             PreparedStatement ps = oc.prepareStatement(s);
-
-            while(rs.next()) {
-                String user = rs.getString(1);
-                ps.setString(1, user);
-                String role = rs.getString(2);
-                ps.setString(2, role);
-                ps.executeUpdate();
-            }
-            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

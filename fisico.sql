@@ -117,7 +117,7 @@ CREATE TABLE role_user(
 
 CREATE TABLE tablespace(
     id_tablespace number(30) NOT NULL,
-    name varchar(20) NOT NULL,
+    name varchar(100) NOT NULL,
     block_size number(20) NOT NULL,
     max_size number(20) NOT NULL,
     status varchar(20) NOT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE tablespace(
 
 CREATE TABLE datafile(
     id_datafile number(30) NOT NULL,
-    name varchar(70) NOT NULL,
+    name varchar(150) NOT NULL,
     bytes number(20) NOT NULL,
     id_tablespace_FK numeric(20) NOT NULL,
     df_timestamp varchar(50) NOT NULL,

@@ -123,20 +123,6 @@ public class Selects {
         }
 
         return rs;
-    }  
-    
-            public static ResultSet selectRoleUser() {
-        ResultSet rs = null;
-        try {
-            c_plug = BDConnection.getBDConnection_plug();
-            PreparedStatement ps = c_plug.prepareStatement("SELECT GRANTEE, GRANTED_ROLE FROM DBA_ROLE_PRIVS");
-            rs = ps.executeQuery();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-        return rs;
-    }
-    
+    }    
 }
         
