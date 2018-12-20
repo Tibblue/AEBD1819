@@ -88,14 +88,14 @@ public class Inserts {
             PreparedStatement ps = oc.prepareStatement(s);
 
             while(rs.next()) {
-                String core_count = rs.getString(1);
+                String core_count = rs.getString(5);
                 ps.setString(3, core_count);
-                String count = rs.getString(2);
+                String count = rs.getString(4);
                 ps.setString(1, count);
-                String socket_count = rs.getString(3);
+                String socket_count = rs.getString(6);
                 ps.setString(4, socket_count);
                 ps.setString(5, timestamp);
-                String version = rs.getString(6);
+                String version = rs.getString(2);
                 ps.setString(2, version);
 
                 ps.executeUpdate();

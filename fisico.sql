@@ -32,7 +32,7 @@ show user;
 --DROP TABLE Memory PURGE;
 --DROP TABLE CPU PURGE;
 --DROP TABLE Datafile PURGE;
---drop table UsersDB cascade constraints;
+--DROP table UsersDB cascade constraints;
 --DROP TABLE Role cascade constraints;
 --DROP TABLE role_user cascade constraints;
 --DROP TABLE Tablespace PURGE;
@@ -80,7 +80,7 @@ CREATE TABLE cpu(
     );
 
 CREATE TABLE usersDB(
-    id_usersDB number(30) NOT NULL,
+    id_user number(30) NOT NULL,
     username varchar(70) NOT NULL,
     account_status varchar(70) NOT NULL,
     default_ts varchar(70) NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE usersDB(
     last_login varchar(200) NOT NULL, 
     user_timestamp varchar(50) NOT NULL,
     id_db_FK number(20) NOT NULL,
-    CONSTRAINT id_usersDB PRIMARY KEY (id_usersDB),
+    CONSTRAINT id_user PRIMARY KEY (id_user),
     CONSTRAINT id_db_users
         FOREIGN KEY (id_db_FK)
         REFERENCES db(id_db)
@@ -107,7 +107,7 @@ CREATE TABLE role_user(
     role_id_role number(30) NOT NULL,
     CONSTRAINT user_role_user
         FOREIGN KEY (user_id_user)
-        REFERENCES usersDB(id_usersDB),
+        REFERENCES usersDB(id_user),
     CONSTRAINT role_role_user
         FOREIGN KEY (role_id_role)
         REFERENCES role(id_role)
@@ -134,7 +134,7 @@ CREATE TABLE tablespace(
 
 CREATE TABLE datafile(
     id_datafile number(30) NOT NULL,
-    name varchar(20) NOT NULL,
+    name varchar(70) NOT NULL,
     bytes number(20) NOT NULL,
     id_tablespace_FK numeric(20) NOT NULL,
     df_timestamp varchar(50) NOT NULL,
@@ -202,10 +202,10 @@ END;
 CREATE OR REPLACE TRIGGER usersDB_trigger
 BEFORE INSERT ON usersDB
 FOR EACH ROW
- WHEN (new.id_usersDB IS NULL) 
+ WHEN (new.id_user IS NULL) 
 BEGIN
   SELECT  usersDB_seq.nextval
-  INTO :new.id_usersDB
+  INTO :new.id_user
   FROM dual;
 END;
 /

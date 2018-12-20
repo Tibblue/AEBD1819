@@ -26,7 +26,6 @@ public class BDConnection {
     	
     	try {
             oc = DriverManager.getConnection(conn,user,pw);
-            System.out.println("Connection successful!");
             return oc;
         } catch (SQLException e) {
             System.out.println("Cannot open connection: "+e.getMessage());

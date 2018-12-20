@@ -116,7 +116,7 @@ public class Selects {
         ResultSet rs = null;
         try {
             c_plug = BDConnection.getBDConnection_plug();
-            PreparedStatement ps = c_plug.prepareStatement("SELECT USERNAME, ACCOUNT_STATUS, DEFAULT_TABLESPACE, TEMPORARY_TABLESPACE, LAST_LOGIN FROM DBA_USERS");
+            PreparedStatement ps = c_plug.prepareStatement("SELECT USERNAME, ACCOUNT_STATUS, DEFAULT_TABLESPACE, TEMPORARY_TABLESPACE, NVL(TO_CHAR(LAST_LOGIN),'undefined') FROM DBA_USERS");
             rs = ps.executeQuery();
         } catch (SQLException ex) {
             ex.printStackTrace();
