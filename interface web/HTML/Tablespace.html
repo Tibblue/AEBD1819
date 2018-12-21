@@ -2,27 +2,21 @@
 <html>
 <head>
   <meta charset="UTF-8" http-equiv="refresh" content="15">
-  <title>CPU</title>
-  <link rel="stylesheet" type="text/css" href="w3.css">
-  <script src="jquery-3.3.1.min.js"></script>
-  <script src="convert.js"></script>
-  <script src="include.js"></script>
+  <title>Tablespace</title>
+  <link rel="stylesheet" type="text/css" href="includes/w3.css">
+  <script src="includes/jquery-3.3.1.min.js"></script>
+  <script src="includes/convert.js"></script>
+  <script src="includes/include.js"></script>
 </head>
 <body>
-  <div class="w3-card-4 w3-red">
-    <header class="w3-container w3-center">
-      <h1>CPU</h1>
-    </header>
-  </div>
-
-  <div w3-include-html="top-bar.html"></div>
-  <script>includeHTML();</script>
-
-  <table id="excelDataTable" class="w3-table-all">
+  <h1 align="center">Tablespace</h1>
+  <p>&nbsp;</p>
+  
+  <table id="excelDataTable" border="1" align="center" bgcolor="white">
   </table>
 	<script>
     $(document).ready(function(){
-      var test = 'http://localhost:8080/ords/grupo2/cpu/?q={"$orderby":{"id_cpu":"ASC"}}'
+      var test = 'http://localhost:8080/ords/grupo2/tablespace/?q={"$orderby":{"id_tablespace":"ASC"}}'
       $.getJSON(test, function (json) {
         console.log("JSON returnado pela BD")
         console.dir(json)
@@ -39,5 +33,6 @@
   <h3 align="center">
     <a href="Index.html"> <font color="gray">Index</font></a>
   </h3>
-</body>
+  
+  </body>
 </html>

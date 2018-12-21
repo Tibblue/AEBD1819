@@ -2,21 +2,21 @@
 <html>
 <head>
   <meta charset="UTF-8" http-equiv="refresh" content="15">
-  <title>User</title>
-  <link rel="stylesheet" type="text/css" href="w3.css">
-  <script src="jquery-3.3.1.min.js"></script>
-  <script src="convert.js"></script>
-  <script src="include.js"></script>
+  <title>Role</title>
+  <link rel="stylesheet" type="text/css" href="includes/w3.css">
+  <script src="includes/jquery-3.3.1.min.js"></script>
+  <script src="includes/convert.js"></script>
+  <script src="includes/include.js"></script>
 </head>
 <body>
-  <h1 align="center">User</h1>
+  <h1 align="center">Role</h1>
   <p>&nbsp;</p>
-  
+
   <table id="excelDataTable" border="1" align="center" bgcolor="white">
   </table>
 	<script>
     $(document).ready(function(){
-      var test = 'http://localhost:8080/ords/grupo2/user/?q={"$orderby":{"id_user":"ASC"}}'
+      var test = 'http://localhost:8080/ords/grupo2/role/?q={"$orderby":{"id_role":"ASC"}}'
       $.getJSON(test, function (json) {
         console.log("JSON returnado pela BD")
         console.dir(json)
@@ -34,5 +34,5 @@
     <a href="Index.html"> <font color="gray">Index</font></a>
   </h3>
   
-  </body>
+</body>
 </html>
