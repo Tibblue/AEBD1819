@@ -1,11 +1,42 @@
-DROP TABLE Memory PURGE;
-DROP TABLE CPU PURGE;
-DROP TABLE Datafile PURGE;
-DROP table UsersDB cascade constraints;
-DROP TABLE Role cascade constraints;
-DROP TABLE role_user cascade constraints;
-DROP TABLE Tablespace PURGE;
-DROP TABLE DB PURGE; 
+--TABLESPACE TP_AEBD
+CREATE TABLESPACE TP_AEBD 
+    DATAFILE 
+        '\u01\app\oracle\oradata\orcl12\orcl\TP_AEBD_01.DBF' SIZE 104857600;
+
+--TABLESPACE TP_TEMP   
+CREATE TEMPORARY TABLESPACE TP_TEMP 
+    TEMPFILE 
+        '\u01\app\oracle\oradata\orcl12\orcl\TP_TEMPORARY_01.DBF' SIZE 52428800 AUTOEXTEND ON NEXT 104857600 MAXSIZE 34359721984 
+    EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1048576;
+
+--USER grupo2
+CREATE USER grupo2 IDENTIFIED BY pass  
+DEFAULT TABLESPACE TP_AEBD
+TEMPORARY TABLESPACE TP_TEMP
+PASSWORD EXPIRE ;
+
+ALTER USER grupo2 QUOTA UNLIMITED ON TP_AEBD;
+
+-- GRANTS to grupo2
+GRANT "DBA" TO grupo2 ;
+
+GRANT CREATE SESSION TO grupo2 ;
+GRANT CREATE TABLE TO grupo2 ;
+
+-- TEST CONNECTION
+connect grupo2/pass;
+
+show user;
+
+-- TABLE DROPS
+--DROP TABLE Memory PURGE;
+--DROP TABLE CPU PURGE;
+--DROP TABLE Datafile PURGE;
+--DROP table UsersDB cascade constraints;
+--DROP TABLE Role cascade constraints;
+--DROP TABLE role_user cascade constraints;
+--DROP TABLE Tablespace PURGE;
+--DROP TABLE DB PURGE; 
 
 
 -- MODELO FISICO
@@ -21,13 +52,12 @@ CREATE TABLE db(
     );
     
 CREATE TABLE memory(
-    id_mem number(30) NOT NULL,
-    pool varchar(50) NOT NULL,
-    alloc_bytes number(20) NOT NULL,
-    used_bytes number(20) NOT NULL,
-    populated_status varchar(90) NOT NULL,
-    mem_timestamp varchar(50) NOT NULL,
-    id_db_FK number(20) NOT NULL,
+    id_mem          NUMBER(30) NOT NULL,
+    total_size_mb   NUMBER(30),
+    free_size_mb    NUMBER(30),
+    used_size_mb    NUMBER(30),
+    mem_timestamp   varchar(50),
+    id_db_FK        NUMBER(30) NOT NULL,
     CONSTRAINT id_mem PRIMARY KEY (id_mem),
     CONSTRAINT id_db_memory
         FOREIGN KEY (id_db_FK)
@@ -41,7 +71,7 @@ CREATE TABLE cpu(
     cpu_core_count number(20) NOT NULL,
     cpu_socket_count number(20) NOT NULL,
     cpu_timestamp varchar(50) NOT NULL,
-    id_db_FK number(20) NOT NULL,
+    id_db_FK number(30) NOT NULL,
     CONSTRAINT id_cpu PRIMARY KEY (id_cpu),
     CONSTRAINT id_db_cpu
         FOREIGN KEY (id_db_FK)
@@ -56,7 +86,7 @@ CREATE TABLE usersDB(
     temp_ts varchar(70) NOT NULL,
     last_login varchar(200) NOT NULL, 
     user_timestamp varchar(50) NOT NULL,
-    id_db_FK number(20) NOT NULL,
+    id_db_FK number(30) NOT NULL,
     CONSTRAINT id_user PRIMARY KEY (id_user),
     CONSTRAINT id_db_users
         FOREIGN KEY (id_db_FK)
@@ -72,15 +102,17 @@ CREATE TABLE role(
 
 
 CREATE TABLE role_user(
-    user_id_user number(30) NOT NULL,
-    role_id_role number(30) NOT NULL,
-    CONSTRAINT user_role_user
-        FOREIGN KEY (user_id_user)
-        REFERENCES usersDB(id_user),
-    CONSTRAINT role_role_user
-        FOREIGN KEY (role_id_role)
-        REFERENCES role(id_role)
+    user_id_user   NUMBER(30) NOT NULL,
+    role_id_role   NUMBER(30) NOT NULL,
+    timestamp      VARCHAR2(50),
+    CONSTRAINT role_user_user_fk 
+        FOREIGN KEY ( user_id_user )
+        REFERENCES usersdb ( id_user ),
+    CONSTRAINT role_user_role_fk 
+        FOREIGN KEY ( role_id_role )
+        REFERENCES role ( id_role )
     );
+
 
 
 CREATE TABLE tablespace(
@@ -92,7 +124,7 @@ CREATE TABLE tablespace(
     contents varchar(30) NOT NULL,
     initial_extent number(20) NOT NULL,
     ts_timestamp varchar(50) NOT NULL,
-    id_db_FK number(20) NOT NULL,
+    id_db_FK number(30) NOT NULL,
     CONSTRAINT id_tablespace PRIMARY KEY (id_tablespace),
     CONSTRAINT id_db_tablespace
         FOREIGN KEY (id_db_FK)
@@ -113,14 +145,16 @@ CREATE TABLE datafile(
     );
 
 
-DROP sequence db_seq;
-DROP sequence memory_seq;
-DROP sequence cpu_seq;
-DROP sequence usersdb_seq;
-DROP sequence role_seq;
-DROP sequence tablespace_seq;
-DROP sequence datafile_seq;
+--SEQUENCE DROPS
+--DROP sequence db_seq;
+--DROP sequence memory_seq;
+--DROP sequence cpu_seq;
+--DROP sequence usersdb_seq;
+--DROP sequence role_seq;
+--DROP sequence tablespace_seq;
+--DROP sequence datafile_seq;
 
+--SEQUENCES
 CREATE sequence db_seq start with 1 increment by 1 nomaxvalue;
 CREATE sequence memory_seq start with 1 increment by 1 nomaxvalue;
 CREATE sequence cpu_seq start with 1 increment by 1 nomaxvalue;
@@ -129,14 +163,6 @@ CREATE sequence role_seq start with 1 increment by 1 nomaxvalue;
 CREATE sequence tablespace_seq start with 1 increment by 1 nomaxvalue;
 CREATE sequence datafile_seq start with 1 increment by 1 nomaxvalue;
 
-
-DROP trigger db_trigger;
-DROP trigger cpu_trigger;
-DROP trigger memory_trigger;
-DROP trigger usersdb_trigger;
-DROP trigger role_trigger;
-DROP trigger tablespace_trigger;
-DROP trigger datafile_trigger;
 
 -- TRIGGERS
 CREATE OR REPLACE TRIGGER db_trigger
@@ -219,4 +245,13 @@ BEGIN
   INTO :new.id_datafile
   FROM dual;
 END;
-/      
+/         
+
+--TRIGGER DROPS
+--DROP trigger db_trigger;
+--DROP trigger cpu_trigger;
+--DROP trigger memory_trigger;
+--DROP trigger usersdb_trigger;
+--DROP trigger role_trigger;
+--DROP trigger tablespace_trigger;
+--DROP trigger datafile_trigger;

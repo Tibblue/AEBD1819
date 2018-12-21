@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="C54919C2-89D4-115F-898F-1DB7A2CD8700" containerWithKeyObject="1E990BEA-818B-DAD6-836A-A4DB24F6F4D9" localFKIndex="920BAB6B-B877-9E24-C04C-E14AD33D2C2E" name="Datafiles_Tablespaces_FK">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:37:50 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<referredTableLongName>Tablespaces</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>CD8C2CB0-FB6D-7D72-CDE4-9539F5697579</referredTableID>
+<keyObject>73144139-D746-D222-B971-B46FED5C6CC6</keyObject>
+<referredKeyID>73144139-D746-D222-B971-B46FED5C6CC6</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_tablespace</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

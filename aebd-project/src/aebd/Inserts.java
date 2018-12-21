@@ -46,7 +46,7 @@ public class Inserts {
 
                      // MEMORY            
                     System.out.println("Load MEMORY");
-                    result = sl.selectMemory();
+                    result = sl.selectMemory_totalSizeMB();
                     insertMemory(result);
                     
                     // TABLESPACES            
@@ -111,24 +111,29 @@ public class Inserts {
     }
 
     public static void insertMemory(ResultSet rs) {
-        String s = "insert into memory (pool, alloc_bytes, used_bytes, populated_status, mem_timestamp, id_db_FK) values (?,?,?,?,?,db_seq.CURRVAL)";
+        String s = "insert into memory (total_size_mb, free_size_mb, used_size_mb, mem_timestamp, id_db_FK) values (?,?,?-?,?,db_seq.CURRVAL)";
         try {
             PreparedStatement ps = con.prepareStatement(s);
 
             while(rs.next()) {
-                String pool = rs.getString(1);
-                ps.setString(1, pool);
-                String a_bytes = rs.getString(2);
-                ps.setString(2, a_bytes);
-                String u_bytes = rs.getString(3);
-                ps.setString(3, u_bytes);
-                String p_status = rs.getString(4);
-                ps.setString(4, p_status);
-                ps.setString(5, timestamp);
-
-                ps.executeUpdate();
+                String total_s = rs.getString(1);
+                ps.setString(1, total_s);
+                ps.setString(3, total_s);
             }
             rs.close();
+            
+            rs = sl.selectMemory_freeSizeMB();
+            
+            while(rs.next()) {
+                String free_s = rs.getString(1);
+                ps.setString(2, free_s);      
+                ps.setString(4, free_s);
+                ps.setString(5, timestamp);
+            }
+            rs.close();
+            
+            ps.executeUpdate();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

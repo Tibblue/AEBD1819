@@ -1,0 +1,133 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BC50952C-EE79-7908-0B3A-0ADDEBB85690" name="User">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:13:07 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<ordsAlias>table_7</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_user" id="0E751595-B4F0-307E-47E2-07A9CAD14DE9">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:13:46 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>30</dataTypePrecision>
+<ownDataTypeParameters>,30,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="username" id="066D95EE-D167-6E41-E7EF-69578F8F8C15">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:14:24 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="account_status" id="ACD6DB1D-4444-BAFD-9BA4-34BF74B1F597">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:14:43 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="default_ts" id="0A16A8A3-450A-3C25-039E-D8B2DA5E619C">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:15:08 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="temp_ts" id="05E03F09-62ED-91CD-AF21-1817195ED886">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:15:47 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="last_login" id="AA521706-0D8E-260A-9B2F-FBFF3C5878CF">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:17:51 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200</dataTypeSize>
+<ownDataTypeParameters>200,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="user_timestamp" id="A9AA1435-A021-2669-6A17-4F2226337C6E">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:20:03 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DB_id_db" id="8E518842-B2FE-BF9E-6CAC-F840F9095B89">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:38:14 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>30</dataTypePrecision>
+<ownDataTypeParameters>,30,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="18328258-3746-2431-6FEC-78A6C10D2738" referredColumn="60A16596-3758-7D25-6716-F223A8270B21"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="28E2B851-074F-33EA-121B-A198D628B7BA" name="User_PK">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:13:46 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0E751595-B4F0-307E-47E2-07A9CAD14DE9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="219C956E-AAA5-A19A-2C7C-309C2AF3FACC" name="User_DB_FK">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:38:14 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8E518842-B2FE-BF9E-6CAC-F840F9095B89"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

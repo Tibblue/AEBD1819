@@ -1,0 +1,108 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="911BC569-4B0D-F1D6-A4F6-304772A605D3" name="DB">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:28:15 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<ordsAlias>table_14</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_db" id="60A16596-3758-7D25-6716-F223A8270B21">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:28:38 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>30</dataTypePrecision>
+<ownDataTypeParameters>,30,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id_db_root" id="83946C81-3FB6-AF32-6929-44826A39B252">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-12-14 13:22:08 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>30</dataTypePrecision>
+<ownDataTypeParameters>,30,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="777354E0-5A1E-DCF3-FFC6-2D0553BA4F05">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:28:47 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="platform" id="D7A21094-FF38-E76F-656D-3166D2AB71A5">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:29:03 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="data_storage" id="648EE380-7B9F-3F78-222B-8AB76CCA1701">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:29:31 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>100</dataTypePrecision>
+<ownDataTypeParameters>,100,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="db_timestamp" id="99E84512-4307-C307-FE90-A8AD0004BC49">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:36:05 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="number_sessions" id="6A13231F-0A6C-ACD7-ACF8-3478DCC5064E">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:56:52 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>30</dataTypePrecision>
+<ownDataTypeParameters>,30,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="80885376-F46E-A01F-20C8-726AF43785B7" name="DB_PK">
+<createdBy>Luís Costa</createdBy>
+<createdTime>2018-11-30 10:29:06 UTC</createdTime>
+<ownerDesignName>m2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="60A16596-3758-7D25-6716-F223A8270B21"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
