@@ -14,7 +14,7 @@ public class Inserts {
     private static ResultSet result;
     
     public Inserts(Selects selects) {
-        timestamp = LocalDateTime.now().toString().replace("T", " ");;
+        timestamp = LocalDateTime.now().toString().replace("T", " ");
         sl = selects;
     }
     
