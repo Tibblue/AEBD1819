@@ -17,12 +17,11 @@ function addAllColumnHeaders(selector, myList) {
   var headerTR$ = $('<tr/>');
 
   // TODO verificar se é preciso verificar todos os elementos
-  // problema elementos vazios no primeiro elemento
   for (var i = 0; i < myList.length; i++) {
     var elem = myList[i];
       for (var attrib in elem) {
         // se o attrib nao estiver no columnSet adiciona
-        if ($.inArray(attrib, columnSet) == -1) {
+        if (attrib != "links" && $.inArray(attrib, columnSet) == -1) {
           columnSet.push(attrib);
           headerTR$.append($('<th/>').html(attrib));
         }

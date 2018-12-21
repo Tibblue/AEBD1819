@@ -3,20 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>DB</title>
-  <script type="text/javascript" src="convert.js"></script>
-  <script src="jquery-3.3.1.min.js"></script>
   <link rel="stylesheet" type="text/css" href="w3.css">
-  <style> 
-    td, th {
-      text-align:center;
-    }
-  </style>
+  <script src="jquery-3.3.1.min.js"></script>
+  <script src="convert.js"></script>
+  <script src="include.js"></script>
 </head>
-<body style="background-color:lightgray;">
-  <h1 align="center">DataBase</h1>
-  <p>&nbsp;</p>
+<body>
+  <div class="w3-card-4 w3-red">
+    <header class="w3-container w3-center">
+      <h1>Database</h1>
+    </header>
+  </div>
 
-  <table id="excelDataTable" border="1" align="center" bgcolor="white">
+  <div w3-include-html="top-bar.html"></div>
+  <script>includeHTML();</script>
+
+  <table id="excelDataTable" class="w3-table-all">
   </table>
 	<script>
     $(document).ready(function(){
@@ -32,11 +34,6 @@
       });
     });
   </script>
-  
-  <p>&nbsp;</p>
-  <h3 align="center">
-    <a href="Index.html"> <font color="gray">Index</font></a>
-  </h3>
   
 </body>
 </html>
