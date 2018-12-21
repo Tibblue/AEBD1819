@@ -7,6 +7,7 @@
   <script src="includes/jquery-3.3.1.min.js"></script>
   <script src="includes/convert.js"></script>
   <script src="includes/include.js"></script>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
   <div class="w3-card-4 w3-red">
@@ -18,24 +19,54 @@
   <div w3-include-html="top-bar.html"></div>
   <script>includeHTML();</script>
 
-  <table id="excelDataTable" class="w3-table-all">
-  </table>
-	<script>
+  <!-- Tabela -->
+  <table id="excelDataTable" class="w3-table-all"></table>
+  <!-- Gráfico -->
+  <div id="chartContainer" style="height: 500px; width: 100%;"></div>
+  <!-- Script -->
+	<script type="text/javascript">
     $(document).ready(function(){
       var test = 'http://localhost:8080/ords/grupo2/cpu/?q={"$orderby":{"id_cpu":"ASC"}}'
       $.getJSON(test, function (json) {
-        console.log("JSON returnado pela BD")
-        console.dir(json)
+        // DEBUG
+        // console.log("JSON returnado pela BD")
+        // console.dir(json)
         console.log("JSON apenas com a lista de objetos")
         console.dir(json.items)
+        
+        // LOAD DA TABELA
         buildHtmlTable('#excelDataTable', json.items);
+
+        // LOAD DO GRAFICO
+        $(document).ready(function () {
+          var dataPoints = []
+            // dataPoints.push({label:"banana", y:5})
+          for(var i=0 ; i<json.items.length; i++){
+            // console.log(json.items[i])
+            dataPoints.push({label:json.items[i].cpu_timestamp, y:json.items[i].cpu_core_count})
+          }
+          var chart = new CanvasJS.Chart("chartContainer", {
+            title:{
+              text: "CPU"              
+            },
+            axisX: {
+              title: "TimeStamp"
+            },
+            axisY: {
+              title: "Core Count"
+            },
+            data: [
+              {
+                type: "column",  // Change type to "column", "doughnut", "line", "splineArea", etc.
+                dataPoints: dataPoints
+              }
+            ]
+          });
+          chart.render();
+        })
       });
     });
   </script>
   
-  <p>&nbsp;</p>
-  <h3 align="center">
-    <a href="Index.html"> <font color="gray">Index</font></a>
-  </h3>
 </body>
 </html>

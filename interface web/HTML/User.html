@@ -7,14 +7,24 @@
   <script src="includes/jquery-3.3.1.min.js"></script>
   <script src="includes/convert.js"></script>
   <script src="includes/include.js"></script>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
-  <h1 align="center">User</h1>
-  <p>&nbsp;</p>
-  
-  <table id="excelDataTable" border="1" align="center" bgcolor="white">
-  </table>
-	<script>
+  <div class="w3-card-4 w3-red">
+    <header class="w3-container w3-center">
+      <h1>User</h1>
+    </header>
+  </div>
+
+  <div w3-include-html="top-bar.html"></div>
+  <script>includeHTML();</script>
+
+  <!-- Tabela -->
+  <table id="excelDataTable" class="w3-table-all"></table>
+  <!-- Gráfico -->
+  <div id="chartContainer" style="height: 500px; width: 100%;"></div>
+  <!-- Script -->
+	<script type="text/javascript">
     $(document).ready(function(){
       var test = 'http://localhost:8080/ords/grupo2/user/?q={"$orderby":{"id_user":"ASC"}}'
       $.getJSON(test, function (json) {
@@ -29,10 +39,5 @@
     });
   </script>
   
-  <p>&nbsp;</p>
-  <h3 align="center">
-    <a href="Index.html"> <font color="gray">Index</font></a>
-  </h3>
-  
-  </body>
+</body>
 </html>

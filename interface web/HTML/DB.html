@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- <meta charset="UTF-8" http-equiv="refresh" content="15"> -->
+  <meta charset="UTF-8" http-equiv="refresh" content="15">
   <title>DB</title>
   <link rel="stylesheet" type="text/css" href="includes/w3.css">
   <script src="includes/jquery-3.3.1.min.js"></script>
   <script src="includes/convert.js"></script>
   <script src="includes/include.js"></script>
-  
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
@@ -21,9 +20,9 @@
   <script>includeHTML();</script>
 
   <!-- Tabela -->
-  <table id="excelDataTable" class="w3-table-all"> </table>
+  <table id="excelDataTable" class="w3-table-all"></table>
   <!-- Gráfico -->
-  <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+  <div id="chartContainer" style="height: 500px; width: 100%;"></div>
   <!-- Script -->
   <script type="text/javascript">
     $(document).ready(function(){
@@ -39,24 +38,28 @@
         buildHtmlTable('#excelDataTable', json.items);
 
         // LOAD DO GRAFICO
-        // TODO meter no convert.js
         $(document).ready(function () {
+          var dataPoints = []
+            // dataPoints.push({label:"banana", y:25})
+          for(var i=0 ; i<json.items.length; i++){
+            // console.log(json.items[i])
+            dataPoints.push({label:json.items[i].db_timestamp, y:json.items[i].number_sessions})
+          }
           var chart = new CanvasJS.Chart("chartContainer", {
             title:{
-              text: "My First Chart in CanvasJS"              
+              text: "DB sessions per timestamp"              
+            },
+            axisX: {
+              title: "TimeStamp"
+            },
+            axisY: {
+              title: "Sessions"
             },
             data: [
-            {
-              // Change type to "doughnut", "line", "splineArea", etc.
-              type: "column",
-              dataPoints: [
-                { label: json.items[0].name,  y: json.items[0].id_db  },
-                { label: "orange", y: 15  },
-                { label: "banana", y: 25  },
-                { label: "mango",  y: 30  },
-                { label: "grape",  y: json.items[1].id_db   }
-              ]
-            }
+              {
+                type: "column", // Change type to "column", "doughnut", "line", "splineArea", etc.
+                dataPoints: dataPoints
+              }
             ]
           });
           chart.render();
