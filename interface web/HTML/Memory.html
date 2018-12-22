@@ -43,17 +43,17 @@
             // dataPoints.push({label:"banana", y:5})
           for(var i=0 ; i<json.items.length; i++){
             // console.log(json.items[i])
-            // dataPoints.push({label:json.items[i].cpu_timestamp, y:json.items[i].cpu_core_count})
+            dataPoints.push({label:json.items[i].cpu_timestamp, y:json.items[i].used_size_mb})
           }
           var chart = new CanvasJS.Chart("chartContainer", {
             title:{
-              text: "Memory"              
+              text: "Memory TODO double bar"              
             },
             axisX: {
               title: "TimeStamp"
             },
             axisY: {
-              title: "???"
+              title: "Used/Free"
             },
             data: [
               {
