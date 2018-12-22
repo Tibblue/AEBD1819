@@ -28,13 +28,42 @@
     $(document).ready(function(){
       var test = 'http://localhost:8080/ords/grupo2/memory/?q={"$orderby":{"id_mem":"ASC"}}'
       $.getJSON(test, function (json) {
-        console.log("JSON returnado pela BD")
-        console.dir(json)
+        // DEBUG
+        // console.log("JSON returnado pela BD")
+        // console.dir(json)
         console.log("JSON apenas com a lista de objetos")
         console.dir(json.items)
-        // var myList = JSON.stringify(items);
-        // var myFinal = JSON.parse(myList);
+        
+        // LOAD DA TABELA
         buildHtmlTable('#excelDataTable', json.items);
+
+        // LOAD DO GRAFICO
+        $(document).ready(function () {
+          var dataPoints = []
+            // dataPoints.push({label:"banana", y:5})
+          for(var i=0 ; i<json.items.length; i++){
+            // console.log(json.items[i])
+            // dataPoints.push({label:json.items[i].cpu_timestamp, y:json.items[i].cpu_core_count})
+          }
+          var chart = new CanvasJS.Chart("chartContainer", {
+            title:{
+              text: "Memory"              
+            },
+            axisX: {
+              title: "TimeStamp"
+            },
+            axisY: {
+              title: "???"
+            },
+            data: [
+              {
+                type: "column",  // Change type to "column", "doughnut", "line", "splineArea", etc.
+                dataPoints: dataPoints
+              }
+            ]
+          });
+          chart.render();
+        })
       });
     });
   </script>
