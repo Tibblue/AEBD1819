@@ -19,10 +19,11 @@
   <div w3-include-html="top-bar.html"></div>
   <script>includeHTML();</script>
 
+  <!-- Gráfico -->
+  <div id="pieContainer" style="height: 500px; width: 100%;"></div>
+  <div id="chartContainer" style="height: 500px; width: 100%;"></div>
   <!-- Tabela -->
   <table id="excelDataTable" class="w3-table-all"></table>
-  <!-- Gráfico -->
-  <div id="chartContainer" style="height: 500px; width: 100%;"></div>
   <!-- Script -->
 	<script type="text/javascript">
     $(document).ready(function(){
@@ -38,9 +39,34 @@
         buildHtmlTable('#excelDataTable', json.items);
 
         // LOAD DO GRAFICO
+        // pie
+        $(document).ready(function () {
+          var chart = new CanvasJS.Chart("pieContainer", {
+            theme: "light1", // "light1", "light2", "dark1", "dark2"
+            exportEnabled: true,
+            animationEnabled: true,
+            title: {
+              text: "Total Size = "+json.items[json.items.length-1].total_size_mb+"MB"
+            },
+            data: [{
+              type: "pie",
+              startAngle: 0,
+              toolTipContent: "<b>{label}</b>: {y}",
+              showInLegend: "true",
+              legendText: "{label}",
+              indexLabelFontSize: 16,
+              indexLabel: "{label} - {y}",
+              dataPoints: [
+                { y: json.items[json.items.length-1].free_size_mb , label:"Free"},
+                { y: json.items[json.items.length-1].used_size_mb, label:"Used"}
+              ]
+            }]
+          });
+          chart.render();
+        })
+        // chart
         $(document).ready(function () {
           var dataPoints = []
-            // dataPoints.push({label:"banana", y:5})
           for(var i=0 ; i<json.items.length; i++){
             // console.log(json.items[i])
             dataPoints.push({label:json.items[i].cpu_timestamp, y:json.items[i].used_size_mb})

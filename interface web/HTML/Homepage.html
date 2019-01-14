@@ -33,6 +33,7 @@
     <h3 id="DB_name" class="w3-center">Name: </h3>
     <h3 id="DB_platform" class="w3-center">Platform: </h3>
     <h3 id="DB_session" class="w3-center">Sessions: </h3>
+    <h3 id="DB_dataStorage" class="w3-center">Data Storage (GB): </h3>
 
     <h3>Conteúdos desenvolvidos pelos alunos: </h3>
     <ul>
@@ -87,6 +88,7 @@
         $("#DB_name").append(json.items[length].name);
         $("#DB_platform").append(json.items[length].platform);
         $("#DB_session").append(json.items[length].number_sessions);
+        $("#DB_dataStorage").append((json.items[length].data_storage/1073741824).toFixed(1));
       });
     });
   </script>
