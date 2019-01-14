@@ -19,10 +19,10 @@
   <div w3-include-html="top-bar.html"></div>
   <script>includeHTML();</script>
 
-  <!-- Tabela -->
-  <table id="excelDataTable" class="w3-table-all"></table>
   <!-- Gráfico -->
   <div id="chartContainer" style="height: 500px; width: 100%;"></div>
+  <!-- Tabela -->
+  <table id="excelDataTable" class="w3-table-all"></table>
   <!-- Script -->
   <script type="text/javascript">
     $(document).ready(function(){
@@ -57,7 +57,7 @@
             },
             data: [
               {
-                type: "column", // Change type to "column", "doughnut", "line", "splineArea", etc.
+                type: "line", // Change type to "column", "doughnut", "line", "splineArea", etc.
                 dataPoints: dataPoints
               }
             ]
