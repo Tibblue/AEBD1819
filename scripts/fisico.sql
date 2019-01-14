@@ -246,12 +246,3 @@ BEGIN
   FROM dual;
 END;
 /         
-
---TRIGGER DROPS
---DROP trigger db_trigger;
---DROP trigger cpu_trigger;
---DROP trigger memory_trigger;
---DROP trigger usersdb_trigger;
---DROP trigger role_trigger;
---DROP trigger tablespace_trigger;
---DROP trigger datafile_trigger;

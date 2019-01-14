@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="CD8C2CB0-FB6D-7D72-CDE4-9539F5697579" name="Tablespaces">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="CD8C2CB0-FB6D-7D72-CDE4-9539F5697579" name="Tablespace">
 <createdBy>Luís Costa</createdBy>
 <createdTime>2018-11-30 10:30:11 UTC</createdTime>
 <ownerDesignName>m2</ownerDesignName>
@@ -111,7 +111,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>30</dataTypePrecision>
-<ownDataTypeParameters>,30,</ownDataTypeParameters>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
