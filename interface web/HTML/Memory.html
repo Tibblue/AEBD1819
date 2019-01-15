@@ -69,7 +69,7 @@
           var dataPoints = []
           for(var i=0 ; i<json.items.length; i++){
             // console.log(json.items[i])
-            dataPoints.push({label:json.items[i].cpu_timestamp, y:json.items[i].used_size_mb})
+            dataPoints.push({label:json.items[i].mem_timestamp, y:json.items[i].used_size_mb})
           }
           var chart = new CanvasJS.Chart("chartContainer", {
             title:{
@@ -79,7 +79,7 @@
               title: "TimeStamp"
             },
             axisY: {
-              title: "Used/Free"
+              title: "Used"
             },
             data: [
               {

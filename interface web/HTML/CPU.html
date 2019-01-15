@@ -40,7 +40,6 @@
         // LOAD DO GRAFICO
         $(document).ready(function () {
           var dataPoints = []
-            // dataPoints.push({label:"banana", y:5})
           for(var i=0 ; i<json.items.length; i++){
             // console.log(json.items[i])
             dataPoints.push({label:json.items[i].cpu_timestamp, y:json.items[i].cpu_core_count})

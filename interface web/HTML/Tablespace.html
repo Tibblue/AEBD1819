@@ -39,26 +39,30 @@
 
         // LOAD DO GRAFICO
         $(document).ready(function () {
-          var dataPoints = []
-            // dataPoints.push({label:"banana", y:5})
+          var dataPointsBlock = []
+          var dataPointsMax = []
           for(var i=0 ; i<json.items.length; i++){
             // console.log(json.items[i])
-            // dataPoints.push({label:json.items[i].cpu_timestamp, y:json.items[i].cpu_core_count})
+            if(json.items[i].name=="TP_AEBD"){
+              dataPointsBlock.push({label:json.items[i].ts_timestamp, y:json.items[i].block_size})
+              // dataPointsMax.push({label:json.items[i].ts_timestamp, y:json.items[i].max_size})
+            }
           }
           var chart = new CanvasJS.Chart("chartContainer", {
+	          animationEnabled: true,
             title:{
-              text: "Tablespace"              
+              text: "Tablespace TP_AEBD"              
             },
             axisX: {
               title: "TimeStamp"
             },
-            axisY: {
+            axisY1: {
               title: "Block size"
             },
             data: [
               {
                 type: "column",  // Change type to "column", "doughnut", "line", "splineArea", etc.
-                dataPoints: dataPoints
+                dataPoints: dataPointsBlock
               }
             ]
           });

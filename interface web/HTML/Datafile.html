@@ -40,10 +40,10 @@
         // LOAD DO GRAFICO
         $(document).ready(function () {
           var dataPoints = []
-            // dataPoints.push({label:"banana", y:5})
           for(var i=0 ; i<json.items.length; i++){
             // console.log(json.items[i])
-            // dataPoints.push({label:json.items[i].cpu_timestamp, y:json.items[i].cpu_core_count})
+            if(json.items[i].name=="/u01/app/oracle/product/12.2/db_1/dbs/u01apporacleoradataorcl12orclTP_AEBD_01.DBF")
+              dataPoints.push({label:json.items[i].df_timestamp, y:json.items[i].bytes})
           }
           var chart = new CanvasJS.Chart("chartContainer", {
             title:{
